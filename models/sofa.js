@@ -29,4 +29,6 @@ const sofaSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+sofaSchema.index({ capacity: 1, color: 1, shape: 1 }, { unique: true });
+
 module.exports = mongoose.model("Sofa", sofaSchema);
