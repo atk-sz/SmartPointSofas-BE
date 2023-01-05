@@ -3,12 +3,19 @@ const router = express.Router();
 
 // middlewares
 const { validateSofa } = require("../middlewares/joi");
+const { authcheck } = require("../middlewares/auth");
 
 // route controllers
-const { getAllSofas, createSofa, getSofa } = require("../controllers/sofa");
+const {
+  getAllSofas,
+  createSofa,
+  getSofa,
+  deleteSofa,
+} = require("../controllers/sofa");
 
 router.get("/sofas", getAllSofas);
 router.post("/sofa/new", validateSofa, createSofa);
-router.post("/sofa/:id", getSofa);
+router.get("/sofa/:id", getSofa);
+router.delete("/sofa/:id", authcheck, deleteSofa);
 
 module.exports = router;
