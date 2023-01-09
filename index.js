@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
+const cors = require("cors");
 
 // Initiate the express app
 const app = express();
@@ -13,9 +14,10 @@ const PORT = process.env.PORT || 4000;
 // Middlewares
 app.use(
   express.json({
-    limit: "3gb",
+    limit: "3mb",
   })
 );
+app.use(cors());
 
 //connecting to db
 mongoose.set("strictQuery", false);

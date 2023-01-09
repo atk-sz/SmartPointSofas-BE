@@ -12,9 +12,6 @@ const signupSchema = Joi.object({
   phone: Joi.number().required().messages({
     "any.required": `"Phone Number" is required`,
   }),
-  password: Joi.string().required().messages({
-    "any.required": `"Password" is required`,
-  }),
   role: Joi.string().optional(),
 });
 
@@ -28,7 +25,7 @@ const signinSchema = Joi.object({
 });
 
 module.exports.validateSignup = (req, res, next) => {
-  const { error } = signupSchema.validate(req.body);
+  const { error } = signupSchema.validate(req.body.values);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     res.status(400).send(msg);
@@ -38,7 +35,7 @@ module.exports.validateSignup = (req, res, next) => {
 };
 
 module.exports.validateSignin = (req, res, next) => {
-  const { error } = signinSchema.validate(req.body);
+  const { error } = signinSchema.validate(req.body.values);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     res.status(400).send(msg);
@@ -66,7 +63,7 @@ const sofaSchema = Joi.object({
 });
 
 module.exports.validateSofa = (req, res, next) => {
-  const { error } = sofaSchema.validate(req.body);
+  const { error } = sofaSchema.validate(req.body.values);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     res.status(400).send(msg);
@@ -128,7 +125,7 @@ module.exports.validateSofa = (req, res, next) => {
 // });
 
 // module.exports.validateSellerReq = (req, res, next) => {
-//   const { error } = storeSchema.validate(req.body.values);
+//   const { error } = storeSchema.validate(req.body.values.values);
 //   if (error) {
 //     const msg = error.details.map((el) => el.message).join(",");
 //     res.status(400).send(msg);
@@ -138,7 +135,7 @@ module.exports.validateSofa = (req, res, next) => {
 // };
 
 // module.exports.validateProduct = (req, res, next) => {
-//   const { error } = productSchema.validate(req.body.product);
+//   const { error } = productSchema.validate(req.body.values.product);
 //   if (error) {
 //     const msg = error.details.map((el) => el.message).join(",");
 //     res.status(400).send(msg);
